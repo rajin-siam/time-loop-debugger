@@ -12,7 +12,6 @@ function App() {
       <main>
         <AddEventForm />
         <Timeline />
-        <EventList />
       </main>
     </div>
   )
