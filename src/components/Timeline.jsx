@@ -27,7 +27,7 @@ const Timeline = () => {
     }
 
     const handleUpdateEvent = (updatedEvent) => {
-        paradoxDetector(updatedEvent.eventId);
+        paradoxDetector(updatedEvent.id);
         const updatedEvents = events.map(event =>
             event.id === updatedEvent.id ? updatedEvent : event
         );
@@ -43,8 +43,6 @@ const Timeline = () => {
     }
 
     const handleRewind = () => {
-        console.log("Rewind button clicked");
-        console.log(timeBranches.length)
         if (timeBranches.length > 1) {
             const previousBranch = timeBranches[timeBranches.length - 2];
             setEvents(previousBranch);
@@ -90,7 +88,6 @@ const Timeline = () => {
                         onEdit={handleEditEvent}
                     />))
                 }
-
             </div>
         </section>
     )

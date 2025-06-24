@@ -6,7 +6,6 @@ const Event = ({ id, name, timestamp, description, onDelete, onEdit }) => {
                 <h3 className="text-xl font-semibold">{name}</h3>
                 <p className="text-gray-600 text-sm mb-2">Timestamp: {timestamp}</p>
                 <p className="text-gray-800">{description}</p>
-
                 <div className="flex gap-2 mt-3">
                     <button
                         onClick={() => onEdit(id)}

@@ -18,7 +18,7 @@ const EventForm = ({ onAdd, eventToEdit, onUpdate, eventList }) => {
             name: newEvent.name,
             timestamp: Number(Date.now()),
             description: newEvent.description,
-            children: [eventList.length - 1],
+            children: eventToEdit ? eventToEdit.children : [eventList.length - 1],
         }
 
         if (eventToEdit) {
