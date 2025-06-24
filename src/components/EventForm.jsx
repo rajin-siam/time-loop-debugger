@@ -1,10 +1,11 @@
 import React from "react";
-const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
+const EventForm = ({ onAdd, eventToEdit, onUpdate, eventList }) => {
     const [newEvent, setNewEvent] = React.useState({
         name: '',
         timestamp: '',
         description: '',
     });
+
 
     const handleChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -12,15 +13,15 @@ const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const formattedEvent = {
             id: eventToEdit ? eventToEdit.id : Date.now(),
             name: newEvent.name,
-            timestamp: Number(newEvent.timestamp),
+            timestamp: Number(Date.now()),
             description: newEvent.description,
+            children: [eventList.length - 1],
         }
 
-        if(eventToEdit) {
+        if (eventToEdit) {
             onUpdate(formattedEvent);
         } else {
             onAdd(formattedEvent);
@@ -34,7 +35,7 @@ const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
     }
 
     React.useEffect(() => {
-        if(eventToEdit) {
+        if (eventToEdit) {
             setNewEvent({
                 name: eventToEdit.name,
                 timestamp: eventToEdit.timestamp,
@@ -57,15 +58,6 @@ const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
                 required
             />
 
-            <input
-                type="number"
-                name="timestamp"
-                value={newEvent.timestamp}
-                onChange={handleChange}
-                placeholder="Timestamp"
-                className="block w-full border p-2 rounded mb-2"
-                required
-            />
 
             <textarea
                 type="text"
@@ -77,12 +69,14 @@ const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
                 rows={3}
                 required
             />
-
             <button
+                name="save"
                 type="submit"
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 {eventToEdit ? "Update Event" : "Add Event"}
             </button>
+
+
         </form>
     )
 }
