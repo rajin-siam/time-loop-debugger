@@ -1,6 +1,4 @@
-import EventList from "./components/EventList";
 import Timeline from "./components/Timeline";
-import AddEventForm from "./components/AddEventForm";
 function App() {
   return (
     <div>

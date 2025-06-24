@@ -1,5 +1,5 @@
 import React from "react";
-const AddEventForm = ({ onAdd }) => {
+const EventForm = ({ onAdd, eventToEdit, onUpdate}) => {
     const [newEvent, setNewEvent] = React.useState({
         name: '',
         timestamp: '',
@@ -14,12 +14,17 @@ const AddEventForm = ({ onAdd }) => {
         e.preventDefault();
 
         const formattedEvent = {
-            id: Date.now(),
+            id: eventToEdit ? eventToEdit.id : Date.now(),
             name: newEvent.name,
             timestamp: Number(newEvent.timestamp),
             description: newEvent.description,
         }
-        onAdd(formattedEvent);
+
+        if(eventToEdit) {
+            onUpdate(formattedEvent);
+        } else {
+            onAdd(formattedEvent);
+        }
         setNewEvent({
             name: '',
             timestamp: '',
@@ -27,6 +32,16 @@ const AddEventForm = ({ onAdd }) => {
         });
 
     }
+
+    React.useEffect(() => {
+        if(eventToEdit) {
+            setNewEvent({
+                name: eventToEdit.name,
+                timestamp: eventToEdit.timestamp,
+                description: eventToEdit.description,
+            })
+        }
+    }, [eventToEdit])
     return (
         <form
             className="mb-6 bg-white p-4 rounded shadow"
@@ -66,9 +81,9 @@ const AddEventForm = ({ onAdd }) => {
             <button
                 type="submit"
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Add Event
+                {eventToEdit ? "Update Event" : "Add Event"}
             </button>
         </form>
     )
 }
-export default AddEventForm;
+export default EventForm;
